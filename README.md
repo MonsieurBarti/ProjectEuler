@@ -158,12 +158,14 @@ By listing the first six prime numbers: 2, 3, 5, 7, 11, and 13, we can see that 
 What is the 10 001st prime number?
 
 ```JS
+let sqrt = num => {
+    return Math.sqrt(num)
+}
 let result = num => {
     let primes = [2]
     for(let i = 3; primes.length < num; i += 2) {
         let i_isPrime = true
-        let sqrt_i = i*i
-        for(let j = 0; j < primes.length && j <= sqrt_i; j++) {
+        for(let j = 0; j < primes.length && j <= sqrt(i); j++) {
             if(i % primes[j] === 0){
                 i_isPrime = false
                 break
@@ -222,6 +224,34 @@ let result = () => {
         }
     }
     return a*b*c
+}
+console.log(result())
+```
+
+## Summation of primes
+
+The sum of the primes below 10 is 2 + 3 + 5 + 7 = 17.
+Find the sum of all the primes below two million.
+
+```JS
+let sqrt = num => {
+    return Math.sqrt(num)
+}
+let result = () => {
+    let sum = 2
+    for (let i = 3; i < 2000000; i+=2) {
+        let i_isPrime = true
+        for (let j = 2; j <= sqrt(i); j++) {
+            if(i % j === 0) {
+                i_isPrime = false
+                break
+            }
+        }
+        if(i_isPrime) {
+            sum += i
+        }
+    }
+    return sum
 }
 console.log(result())
 ```

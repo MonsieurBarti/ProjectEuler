@@ -1,6 +1,6 @@
-// In the 20×20 grid below, four numbers along a diagonal line have been marked in red.
-// The product of these numbers is 26 × 63 × 78 × 14 = 1788696.
-// What is the greatest product of four adjacent numbers in the same direction (up, down, left, right, or diagonally) in the 20×20 grid?
+// In the 20×20 array below, four numbers along a diagonal line have been marjed in red.
+// The max of these numbers is 26 × 63 × 78 × 14 = 1788696.
+// What is the greatest max of four adjacent numbers in the same direction (up, down, left, right, or diagonally) in the 20×20 array?
 
 let array = [
     [08, 02, 22, 97, 38, 15, 00, 40, 00, 75, 04, 05, 07, 78, 52, 12, 50, 77, 91, 08],
@@ -24,13 +24,30 @@ let array = [
     [20, 73, 35, 29, 78, 31, 90, 01, 74, 31, 49, 71, 48, 86, 81, 16, 23, 57, 05, 54],
     [01, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 01, 89, 19, 67, 48]
 ]
-let result = array => {
-    // columns
-    for (let i = 0; i < array.length; i++) {
-        // lines
-        for (let j = 0; j < array[i].length; j++) {
-            
+let num = 4
+let result = (num, array) => {
+    let max = 0
+    for(var i = num - 1; i < (array.length - num); i++) {
+        for(var j = num - 1; j < (array.length - num); j++) {
+            max = Math.max(
+                max,
+
+                // TOP
+                (array[i - 3][j - 3] * array[i - 2][j - 2] * array[i - 1][j - 1] * array[i][j]), // LT
+                (array[i - 3][j] * array[i - 2][j] * array[i - 1][j] * array[i][j]), // MT
+                (array[i - 3][j + 3] * array[i - 2][j + 2] * array[i - 1][j + 1] * array[i][j]), // RT
+                
+                // MIDDLE
+                (array[i][j - 3] * array[i][j - 2] * array[i][j - 1] * array[i][j]), // LM
+                (array[i][j + 3] * array[i][j + 2] * array[i][j + 1] * array[i][j]), // RM
+                
+                // BOTTOM
+                (array[i + 3][j - 3] * array[i + 2][j - 2] * array[i + 1][j + 1] * array[i][j]), // LB
+                (array[i + 3][j] * array[i + 2][j] * array[i + 1][j] * array[i][j]), // MB
+                (array[i + 3][j + 3] * array[i + 2][j + 2] * array[i + 1][j + 1] * array[i][j]) // RB
+            )
         }
     }
+    return max
 }
-console.log(result(array))
+console.log(result(num, array))
